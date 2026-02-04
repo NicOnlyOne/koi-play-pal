@@ -5,8 +5,8 @@ import {
   getMatchingCards, 
   checkYaku,
   HanafudaCard,
-  GamePhase 
 } from '@/lib/hanafuda';
+import { getAIMove, selectBestDrawMatch, shouldAIKoiKoi, AIDifficulty } from '@/lib/aiStrategies';
 import { HanafudaCardComponent } from './HanafudaCard';
 import { Button } from '@/components/ui/button';
 import { 
@@ -16,17 +16,43 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ArrowLeft, RotateCcw, Trophy, Sparkles } from 'lucide-react';
+import { ArrowLeft, RotateCcw, Trophy, Sparkles, Brain, Zap, Flame } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface KoiKoiGameProps {
   onBack: () => void;
 }
 
+const DIFFICULTY_CONFIG = {
+  easy: { 
+    label: 'Easy', 
+    icon: Zap, 
+    description: 'Random play, good for learning',
+    color: 'text-green-400',
+    delay: 1200,
+  },
+  medium: { 
+    label: 'Medium', 
+    icon: Brain, 
+    description: 'Balanced strategy',
+    color: 'text-yellow-400',
+    delay: 1000,
+  },
+  hard: { 
+    label: 'Hard', 
+    icon: Flame, 
+    description: 'Strategic yaku hunting',
+    color: 'text-red-400',
+    delay: 800,
+  },
+};
+
 export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
   const [game, setGame] = useState<GameState>(initializeGame);
   const [showYakuDialog, setShowYakuDialog] = useState(false);
   const [pendingYaku, setPendingYaku] = useState<ReturnType<typeof checkYaku>>([]);
+  const [difficulty, setDifficulty] = useState<AIDifficulty>('medium');
+  const [showDifficultySelect, setShowDifficultySelect] = useState(true);
 
   const handleCardFromHand = useCallback((card: HanafudaCard) => {
     if (game.phase !== 'select-hand' || game.currentPlayer !== 'player') return;
@@ -34,7 +60,6 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     const matches = getMatchingCards(card, game.field);
     
     if (matches.length === 0) {
-      // No match - card goes to field
       setGame(prev => ({
         ...prev,
         playerHand: prev.playerHand.filter(c => c.id !== card.id),
@@ -43,7 +68,6 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
         message: 'Draw a card from the deck',
       }));
     } else if (matches.length === 1) {
-      // Exactly one match - auto capture
       setGame(prev => ({
         ...prev,
         playerHand: prev.playerHand.filter(c => c.id !== card.id),
@@ -53,7 +77,6 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
         message: 'Draw a card from the deck',
       }));
     } else {
-      // Multiple matches - select one
       setGame(prev => ({
         ...prev,
         selectedCard: card,
@@ -132,7 +155,6 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
       setPendingYaku(yakuFound);
       setShowYakuDialog(true);
     } else {
-      // No yaku, switch to AI
       setGame(prev => ({
         ...prev,
         phase: 'ai-turn',
@@ -146,7 +168,6 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     setShowYakuDialog(false);
     
     if (callKoiKoi) {
-      // Continue playing
       setGame(prev => ({
         ...prev,
         phase: 'ai-turn',
@@ -155,7 +176,6 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
         koiKoiChoice: true,
       }));
     } else {
-      // End round and score
       const points = pendingYaku.reduce((sum, y) => sum + y.yaku.points + y.extraPoints, 0);
       setGame(prev => ({
         ...prev,
@@ -166,7 +186,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     }
   }, [pendingYaku]);
 
-  // AI turn logic
+  // AI turn logic with difficulty-based strategy
   useEffect(() => {
     if (game.phase !== 'ai-turn' || game.aiHand.length === 0) {
       if (game.aiHand.length === 0 && game.playerHand.length === 0) {
@@ -176,31 +196,18 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     }
 
     const aiPlay = () => {
-      // Simple AI: play first card that can match, or first card
-      let cardToPlay = game.aiHand[0];
-      let matchingField: HanafudaCard | null = null;
-
-      for (const card of game.aiHand) {
-        const matches = getMatchingCards(card, game.field);
-        if (matches.length > 0) {
-          cardToPlay = card;
-          // Prefer capturing high-value cards
-          matchingField = matches.reduce((best, curr) => 
-            curr.points > best.points ? curr : best, matches[0]);
-          break;
-        }
-      }
-
-      const matches = getMatchingCards(cardToPlay, game.field);
+      // Get AI move based on difficulty
+      const move = getAIMove(game.aiHand, game.field, game.aiCapture, difficulty);
+      const { cardToPlay, targetField } = move;
 
       setGame(prev => {
         let newField = prev.field;
         let newAiCapture = prev.aiCapture;
-        let newAiHand = prev.aiHand.filter(c => c.id !== cardToPlay.id);
+        const newAiHand = prev.aiHand.filter(c => c.id !== cardToPlay.id);
 
-        if (matchingField) {
-          newField = prev.field.filter(c => c.id !== matchingField!.id);
-          newAiCapture = [...prev.aiCapture, cardToPlay, matchingField!];
+        if (targetField) {
+          newField = prev.field.filter(c => c.id !== targetField.id);
+          newAiCapture = [...prev.aiCapture, cardToPlay, targetField];
         } else {
           newField = [...prev.field, cardToPlay];
         }
@@ -210,7 +217,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
           aiHand: newAiHand,
           field: newField,
           aiCapture: newAiCapture,
-          message: matchingField 
+          message: targetField 
             ? `Computer captured ${cardToPlay.name}` 
             : `Computer played ${cardToPlay.name}`,
         };
@@ -237,8 +244,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
           const newDeck = prev.deck.slice(1);
 
           if (drawMatches.length > 0) {
-            const matchToCapture = drawMatches.reduce((best, curr) => 
-              curr.points > best.points ? curr : best, drawMatches[0]);
+            const matchToCapture = selectBestDrawMatch(drawnCard, drawMatches, prev.aiCapture, difficulty);
             newField = prev.field.filter(c => c.id !== matchToCapture.id);
             newAiCapture = [...prev.aiCapture, drawnCard, matchToCapture];
           } else {
@@ -250,6 +256,28 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
           
           if (aiYaku.length > 0) {
             const aiPoints = aiYaku.reduce((sum, y) => sum + y.yaku.points + y.extraPoints, 0);
+            
+            // AI Koi-Koi decision based on difficulty
+            const aiKoiKoi = shouldAIKoiKoi(
+              newAiCapture, 
+              prev.playerCapture, 
+              prev.aiHand, 
+              difficulty, 
+              aiPoints
+            );
+            
+            if (aiKoiKoi && prev.playerHand.length > 0) {
+              return {
+                ...prev,
+                deck: newDeck,
+                field: newField,
+                aiCapture: newAiCapture,
+                phase: 'select-hand',
+                currentPlayer: 'player',
+                message: `Computer calls Koi-Koi with ${aiYaku[0].yaku.name}! Your turn.`,
+              };
+            }
+            
             return {
               ...prev,
               deck: newDeck,
@@ -271,16 +299,22 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
             message: prev.playerHand.length > 0 ? 'Your turn - select a card' : 'Game over!',
           };
         });
-      }, 800);
+      }, DIFFICULTY_CONFIG[difficulty].delay * 0.8);
     };
 
-    const timeout = setTimeout(aiPlay, 1000);
+    const timeout = setTimeout(aiPlay, DIFFICULTY_CONFIG[difficulty].delay);
     return () => clearTimeout(timeout);
-  }, [game.phase, game.aiHand, game.field, game.deck]);
+  }, [game.phase, game.aiHand, game.field, game.deck, game.aiCapture, game.playerCapture, difficulty]);
 
   const handleNewGame = () => {
     setGame(initializeGame());
     setPendingYaku([]);
+    setShowDifficultySelect(true);
+  };
+
+  const handleStartGame = (selectedDifficulty: AIDifficulty) => {
+    setDifficulty(selectedDifficulty);
+    setShowDifficultySelect(false);
   };
 
   const matchableCards = game.selectedCard 
@@ -288,6 +322,61 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     : game.drawnCard 
     ? getMatchingCards(game.drawnCard, game.field)
     : [];
+
+  // Difficulty selection screen
+  if (showDifficultySelect) {
+    return (
+      <div className="min-h-screen flex items-center justify-center py-8 px-4">
+        <div className="glass rounded-2xl p-8 max-w-md w-full">
+          <Button 
+            variant="ghost" 
+            onClick={onBack} 
+            className="text-muted-foreground hover:text-foreground mb-4"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back
+          </Button>
+          
+          <h2 className="text-3xl font-display text-gold text-center mb-2">Select Difficulty</h2>
+          <p className="text-muted-foreground text-center mb-8">Choose your opponent's skill level</p>
+          
+          <div className="space-y-4">
+            {(Object.entries(DIFFICULTY_CONFIG) as [AIDifficulty, typeof DIFFICULTY_CONFIG.easy][]).map(([key, config]) => {
+              const Icon = config.icon;
+              return (
+                <button
+                  key={key}
+                  onClick={() => handleStartGame(key)}
+                  className={cn(
+                    "w-full p-4 rounded-xl border-2 transition-all duration-200",
+                    "hover:scale-[1.02] hover:border-primary/50",
+                    "bg-card/50 border-border",
+                    "flex items-center gap-4 text-left group"
+                  )}
+                >
+                  <div className={cn(
+                    "w-12 h-12 rounded-full flex items-center justify-center",
+                    "bg-muted/50 group-hover:bg-primary/20 transition-colors",
+                    config.color
+                  )}>
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className={cn("font-display text-xl", config.color)}>
+                      {config.label}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{config.description}</p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const DifficultyIcon = DIFFICULTY_CONFIG[difficulty].icon;
 
   return (
     <div className="min-h-screen py-8 px-4">
@@ -300,7 +389,13 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
           </Button>
           <div className="text-center">
             <h1 className="text-2xl font-display text-gold">Koi-Koi</h1>
-            <p className="text-sm text-muted-foreground">Round {game.round}</p>
+            <div className="flex items-center justify-center gap-2 text-sm">
+              <DifficultyIcon className={cn("w-4 h-4", DIFFICULTY_CONFIG[difficulty].color)} />
+              <span className={DIFFICULTY_CONFIG[difficulty].color}>
+                {DIFFICULTY_CONFIG[difficulty].label}
+              </span>
+              <span className="text-muted-foreground">• Round {game.round}</span>
+            </div>
           </div>
           <Button variant="ghost" onClick={handleNewGame} className="text-muted-foreground hover:text-foreground">
             <RotateCcw className="w-4 h-4 mr-2" />
@@ -491,11 +586,16 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
               </div>
               
               <div className="flex gap-3">
-                <Button onClick={onBack} variant="outline" className="flex-1">
-                  Back to Menu
+                <Button 
+                  onClick={onBack}
+                  variant="outline" 
+                  className="flex-1 border-border"
+                >
+                  Exit
                 </Button>
-                <Button onClick={handleNewGame} className="flex-1 bg-gradient-to-r from-primary to-chrysanthemum">
-                  Play Again
+                <Button onClick={handleNewGame} className="flex-1">
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  New Game
                 </Button>
               </div>
             </div>
