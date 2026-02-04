@@ -1,12 +1,39 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useRef } from 'react';
+import { Hero } from '@/components/Hero';
+import { AboutSection } from '@/components/AboutSection';
+import { RulesSection } from '@/components/RulesSection';
+import { KoiKoiGame } from '@/components/KoiKoiGame';
+import { Footer } from '@/components/Footer';
 
 const Index = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const rulesRef = useRef<HTMLDivElement>(null);
+
+  const handlePlayClick = () => {
+    setIsPlaying(true);
+  };
+
+  const handleLearnClick = () => {
+    rulesRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleBackToMenu = () => {
+    setIsPlaying(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (isPlaying) {
+    return <KoiKoiGame onBack={handleBackToMenu} />;
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen">
+      <Hero onPlayClick={handlePlayClick} onLearnClick={handleLearnClick} />
+      <AboutSection />
+      <div ref={rulesRef}>
+        <RulesSection />
       </div>
+      <Footer />
     </div>
   );
 };
