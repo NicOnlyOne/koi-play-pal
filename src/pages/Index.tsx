@@ -3,6 +3,7 @@ import { Hero } from '@/components/Hero';
 import { AboutSection } from '@/components/AboutSection';
 import { RulesSection } from '@/components/RulesSection';
 import { KoiKoiGame } from '@/components/KoiKoiGame';
+import { CardGallery } from '@/components/CardGallery';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
@@ -33,6 +34,7 @@ const Index = () => {
       <div ref={rulesRef}>
         <RulesSection />
       </div>
+      <CardGallery />
       <Footer />
     </div>
   );
