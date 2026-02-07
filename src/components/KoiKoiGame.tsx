@@ -17,6 +17,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ArrowLeft, RotateCcw, Trophy, Sparkles, Brain, Zap, Flame } from 'lucide-react';
+import { playCardFlip, playCardMatch, playCardPlace, playKoiKoi, playYakuComplete, playGameOver, playDraw } from '@/lib/sounds';
 import { cn } from '@/lib/utils';
 
 interface KoiKoiGameProps {
@@ -60,6 +61,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     const matches = getMatchingCards(card, game.field);
     
     if (matches.length === 0) {
+      playCardPlace();
       setGame(prev => ({
         ...prev,
         playerHand: prev.playerHand.filter(c => c.id !== card.id),
@@ -68,6 +70,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
         message: 'Draw a card from the deck',
       }));
     } else if (matches.length === 1) {
+      playCardMatch();
       setGame(prev => ({
         ...prev,
         playerHand: prev.playerHand.filter(c => c.id !== card.id),
@@ -77,6 +80,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
         message: 'Draw a card from the deck',
       }));
     } else {
+      playCardFlip();
       setGame(prev => ({
         ...prev,
         selectedCard: card,
@@ -90,6 +94,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     if (!game.selectedCard) return;
     
     if (game.phase === 'select-field') {
+      playCardMatch();
       setGame(prev => ({
         ...prev,
         playerHand: prev.playerHand.filter(c => c.id !== prev.selectedCard!.id),
@@ -100,6 +105,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
         message: 'Draw a card from the deck',
       }));
     } else if (game.phase === 'draw-field') {
+      playCardMatch();
       setGame(prev => ({
         ...prev,
         field: prev.field.filter(c => c.id !== fieldCard.id),
@@ -115,6 +121,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     if (game.phase !== 'draw' || game.deck.length === 0) return;
     
     const drawnCard = game.deck[0];
+    playDraw();
     const matches = getMatchingCards(drawnCard, game.field);
     
     if (matches.length === 0) {
@@ -152,6 +159,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     const yakuFound = checkYaku(game.playerCapture);
     
     if (yakuFound.length > 0) {
+      playYakuComplete();
       setPendingYaku(yakuFound);
       setShowYakuDialog(true);
     } else {
@@ -168,6 +176,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
     setShowYakuDialog(false);
     
     if (callKoiKoi) {
+      playKoiKoi();
       setGame(prev => ({
         ...prev,
         phase: 'ai-turn',
@@ -176,6 +185,7 @@ export function KoiKoiGame({ onBack }: KoiKoiGameProps) {
         koiKoiChoice: true,
       }));
     } else {
+      playGameOver();
       const points = pendingYaku.reduce((sum, y) => sum + y.yaku.points + y.extraPoints, 0);
       setGame(prev => ({
         ...prev,
