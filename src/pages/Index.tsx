@@ -5,17 +5,17 @@ import { RulesSection } from '@/components/RulesSection';
 import { KoiKoiGame } from '@/components/KoiKoiGame';
 import { CardGallery } from '@/components/CardGallery';
 import { Footer } from '@/components/Footer';
+import { StickyNav } from '@/components/StickyNav';
 
 const Index = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const rulesRef = useRef<HTMLDivElement>(null);
 
   const handlePlayClick = () => {
     setIsPlaying(true);
   };
 
   const handleLearnClick = () => {
-    rulesRef.current?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('rules')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleBackToMenu = () => {
@@ -29,12 +29,17 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <StickyNav onPlayClick={handlePlayClick} />
       <Hero onPlayClick={handlePlayClick} onLearnClick={handleLearnClick} />
-      <AboutSection />
-      <div ref={rulesRef}>
+      <section id="about">
+        <AboutSection />
+      </section>
+      <section id="rules">
         <RulesSection />
-      </div>
-      <CardGallery />
+      </section>
+      <section id="gallery">
+        <CardGallery />
+      </section>
       <Footer />
     </div>
   );
