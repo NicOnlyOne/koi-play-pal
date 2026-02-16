@@ -2,6 +2,46 @@ import { HANAFUDA_DECK } from '@/lib/hanafuda';
 import { HanafudaCardComponent } from './HanafudaCard';
 import { useScrollReveal, useParallax } from '@/hooks/use-scroll-animations';
 import { cn } from '@/lib/utils';
+import { useRef, useEffect, useState } from 'react';
+import type { HanafudaCard } from '@/lib/hanafuda';
+
+function CardShowcase({ cards }: { cards: HanafudaCard[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="relative grid grid-cols-2 gap-4 p-6">
+      {cards.map((card, index) => (
+        <div
+          key={card.id}
+          className={cn(
+            'transition-all duration-500',
+            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+          )}
+          style={{ transitionDelay: `${index * 120}ms` }}
+        >
+          <HanafudaCardComponent card={card} size="lg" disabled />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export function AboutSection() {
   const sampleCards = [1, 2, 3, 4].map(month => 
@@ -74,29 +114,10 @@ export function AboutSection() {
             
             {/* Card showcase with parallax */}
             <div className="flex justify-center" ref={cardsParallax}>
-              <div className="relative" style={{ transform: `translateY(${cardsOffset}px)` }}>
+              <div className="relative" style={{ transform: `translateY(${cardsOffset}px)`, willChange: 'transform' }}>
                 <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-xl scale-110" />
                 
-                <div className="relative grid grid-cols-2 gap-4 p-6">
-                  {sampleCards.map((card, index) => {
-                    const CardReveal = () => {
-                      const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
-                      return (
-                        <div 
-                          ref={ref}
-                          className={cn(
-                            'transition-all duration-500',
-                            isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-                          )}
-                          style={{ transitionDelay: `${index * 120}ms` }}
-                        >
-                          <HanafudaCardComponent card={card} size="lg" disabled />
-                        </div>
-                      );
-                    };
-                    return <CardReveal key={card.id} />;
-                  })}
-                </div>
+                <CardShowcase cards={sampleCards} />
               </div>
             </div>
           </div>
