@@ -1,44 +1,47 @@
 import { useEffect, useState } from 'react';
 
-interface Particle {
+interface Petal {
   id: number;
   left: number;
   delay: number;
   duration: number;
   size: number;
   opacity: number;
+  type: 'lotus' | 'dot';
 }
 
 export function FallingPetals() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const [petals, setPetals] = useState<Petal[]>([]);
 
   useEffect(() => {
-    const items: Particle[] = Array.from({ length: 12 }, (_, i) => ({
+    const items: Petal[] = Array.from({ length: 14 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
-      delay: Math.random() * 14,
+      delay: Math.random() * 12,
       duration: 10 + Math.random() * 8,
-      size: 4 + Math.random() * 6,
-      opacity: 0.1 + Math.random() * 0.15,
+      size: 10 + Math.random() * 14,
+      opacity: 0.15 + Math.random() * 0.2,
+      type: Math.random() > 0.5 ? 'lotus' : 'dot',
     }));
-    setParticles(items);
+    setPetals(items);
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {particles.map((p) => (
+      {petals.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full bg-primary"
+          className="absolute"
           style={{
             left: `${p.left}%`,
-            top: '-10px',
-            width: `${p.size}px`,
-            height: `${p.size}px`,
+            top: '-20px',
+            fontSize: `${p.size}px`,
             opacity: p.opacity,
             animation: `leaf-fall ${p.duration}s linear ${p.delay}s infinite`,
           }}
-        />
+        >
+          {p.type === 'lotus' ? '🌸' : '✦'}
+        </div>
       ))}
     </div>
   );

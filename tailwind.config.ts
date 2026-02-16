@@ -73,8 +73,8 @@ export default {
         cream: "hsl(var(--cream))",
       },
       fontFamily: {
-        display: ['Space Mono', 'monospace'],
-        body: ['Space Grotesk', 'sans-serif'],
+        display: ['Outfit', 'sans-serif'],
+        body: ['Outfit', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
