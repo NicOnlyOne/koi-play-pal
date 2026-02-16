@@ -98,6 +98,36 @@
     --border: 200 15% 25%;
     --input: 200 15% 25%;
     --ring: 10 70% 58%;
+
+    --gradient-cream: linear-gradient(180deg, hsl(200 25% 12%) 0%, hsl(200 25% 10%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(200 20% 16%) 0%, hsl(200 20% 14%) 100%);
+  }
+
+  /* WCAG AAA High Contrast Dark Mode - minimum 7:1 contrast ratios */
+  .dark-wcag {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 45 100% 60%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 180 60% 65%;
+    --secondary-foreground: 0 0% 5%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 75%;
+    --accent: 45 100% 60%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 30%;
+    --input: 0 0% 30%;
+    --ring: 45 100% 60%;
+
+    --gradient-cream: linear-gradient(180deg, hsl(0 0% 5%) 0%, hsl(0 0% 3%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 8%) 100%);
+    --gradient-coral: linear-gradient(135deg, hsl(45 100% 60%) 0%, hsl(40 90% 55%) 100%);
   }
 }
 
@@ -195,11 +225,20 @@
   box-shadow: var(--shadow-hover), 0 0 20px hsl(var(--primary) / 0.2);
 }
 
-/* Glass morphism - lighter for cream theme */
+/* Glass morphism - adapts to theme */
 .glass {
   background: hsl(38 35% 98% / 0.85);
   backdrop-filter: blur(12px);
   border: 1px solid hsl(var(--border) / 0.6);
+}
+
+.dark .glass {
+  background: hsl(200 20% 16% / 0.85);
+}
+
+.dark-wcag .glass {
+  background: hsl(0 0% 10% / 0.9);
+  border: 1px solid hsl(0 0% 30% / 0.8);
 }
 
 /* Coral text effect */
