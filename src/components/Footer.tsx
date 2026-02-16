@@ -1,12 +1,21 @@
 import { Heart } from 'lucide-react';
+import { useScrollReveal } from '@/hooks/use-scroll-animations';
+import { cn } from '@/lib/utils';
 
 export function Footer() {
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.3 });
+
   return (
     <footer className="py-12 border-t border-border/50 relative">
-      {/* Subtle wave decoration */}
       <div className="absolute top-0 left-0 right-0 h-8 seigaiha opacity-20" />
       
-      <div className="container px-4">
+      <div
+        ref={ref}
+        className={cn(
+          'container px-4 transition-all duration-700',
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        )}
+      >
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-4xl mb-4">🌿</div>
           <h3 className="text-2xl font-display text-gold mb-2">Hanafuda</h3>
