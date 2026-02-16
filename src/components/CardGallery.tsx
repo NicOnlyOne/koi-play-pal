@@ -11,7 +11,7 @@ export function CardGallery() {
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/30">
+    <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-3 text-foreground">
           花札 Card Gallery
@@ -26,7 +26,7 @@ export function CardGallery() {
             return (
               <div
                 key={month}
-                className="rounded-xl border border-border bg-card/50 backdrop-blur-sm p-5 hover:shadow-lg transition-shadow"
+                className="rounded-xl border border-border bg-card/80 backdrop-blur-sm p-5 hover:shadow-lg transition-shadow"
               >
                 <div className="flex items-baseline gap-2 mb-4">
                   <span className="text-sm font-bold text-primary">{String(month).padStart(2, '0')}</span>
@@ -54,8 +54,8 @@ export function CardGallery() {
                           <span className={cn(
                             'ml-1 font-medium',
                             card.type === 'bright' && 'text-primary',
-                            card.type === 'animal' && 'text-secondary-foreground',
-                            card.type === 'ribbon' && 'text-accent-foreground',
+                            card.type === 'animal' && 'text-secondary',
+                            card.type === 'ribbon' && 'text-accent',
                           )}>
                             ({card.type})
                           </span>

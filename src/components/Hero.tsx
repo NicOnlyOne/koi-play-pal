@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { FallingPetals } from './FallingPetals';
-import { Sparkles, Play, BookOpen } from 'lucide-react';
+import { Play, BookOpen } from 'lucide-react';
 
 interface HeroProps {
   onPlayClick: () => void;
@@ -12,14 +12,25 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <FallingPetals />
       
-      {/* Background gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sakura/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
+      {/* Large coral sun circle */}
+      <div className="absolute top-10 right-0 w-[400px] h-[400px] md:w-[500px] md:h-[500px] bg-primary/20 rounded-full translate-x-1/4 -translate-y-1/4 animate-sun-pulse" />
+      <div className="absolute top-16 right-4 w-[300px] h-[300px] md:w-[380px] md:h-[380px] bg-primary/30 rounded-full translate-x-1/4 -translate-y-1/4" />
+      
+      {/* Decorative botanical shapes */}
+      <svg className="absolute bottom-0 left-0 w-48 md:w-72 text-secondary/20" viewBox="0 0 200 300" fill="currentColor">
+        <ellipse cx="60" cy="280" rx="35" ry="130" transform="rotate(-8 60 280)" />
+        <ellipse cx="120" cy="270" rx="30" ry="120" transform="rotate(5 120 270)" />
+        <ellipse cx="170" cy="285" rx="28" ry="110" transform="rotate(12 170 285)" />
+      </svg>
+      <svg className="absolute bottom-0 right-12 w-40 md:w-56 text-secondary/15" viewBox="0 0 200 300" fill="currentColor">
+        <ellipse cx="80" cy="280" rx="32" ry="125" transform="rotate(-5 80 280)" />
+        <ellipse cx="140" cy="275" rx="28" ry="115" transform="rotate(8 140 275)" />
+      </svg>
       
       <div className="container relative z-10 text-center px-4">
         {/* Japanese title */}
         <div className="mb-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-          <span className="text-6xl md:text-8xl font-display text-primary opacity-30">
+          <span className="text-6xl md:text-8xl font-display text-primary/25">
             花札
           </span>
         </div>
@@ -34,7 +45,7 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
         
         {/* Subtitle */}
         <p 
-          className="text-xl md:text-2xl text-foreground/80 mb-4 font-light animate-fade-in"
+          className="text-xl md:text-2xl text-foreground/70 mb-4 font-light animate-fade-in"
           style={{ animationDelay: '0.3s' }}
         >
           The Art of Japanese Flower Cards
@@ -45,8 +56,8 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
           className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8 animate-fade-in"
           style={{ animationDelay: '0.4s' }}
         >
-          <Sparkles className="w-4 h-4 text-primary" />
-          <span className="text-sm text-foreground/70">Featuring the beloved <strong className="text-secondary">Koi-Koi</strong> variant</span>
+          <span className="w-2 h-2 rounded-full bg-primary" />
+          <span className="text-sm text-foreground/60">Featuring the beloved <strong className="text-primary">Koi-Koi</strong> variant</span>
         </div>
         
         {/* Description */}
@@ -67,7 +78,7 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
           <Button 
             size="lg" 
             onClick={onPlayClick}
-            className="bg-gradient-to-r from-primary to-chrysanthemum text-primary-foreground hover:opacity-90 transition-opacity text-lg px-8 py-6 shadow-lg hover:shadow-xl"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all text-lg px-8 py-6 shadow-lg hover:shadow-xl rounded-xl"
           >
             <Play className="w-5 h-5 mr-2" />
             Play Koi-Koi
@@ -76,7 +87,7 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
             size="lg" 
             variant="outline" 
             onClick={onLearnClick}
-            className="border-primary/50 text-primary hover:bg-primary/10 text-lg px-8 py-6"
+            className="border-secondary/40 text-secondary hover:bg-secondary/10 text-lg px-8 py-6 rounded-xl"
           >
             <BookOpen className="w-5 h-5 mr-2" />
             Learn the Rules
@@ -88,8 +99,8 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
           style={{ animationDelay: '1s' }}
         >
-          <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-primary/50 rounded-full" />
+          <div className="w-6 h-10 border-2 border-primary/25 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-3 bg-primary/40 rounded-full" />
           </div>
         </div>
       </div>
