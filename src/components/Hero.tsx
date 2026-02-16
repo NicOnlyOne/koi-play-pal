@@ -12,57 +12,59 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <FallingPetals />
       
-      {/* Large coral sun circle */}
-      <div className="absolute top-10 right-0 w-[400px] h-[400px] md:w-[500px] md:h-[500px] bg-primary/20 rounded-full translate-x-1/4 -translate-y-1/4 animate-sun-pulse" />
-      <div className="absolute top-16 right-4 w-[300px] h-[300px] md:w-[380px] md:h-[380px] bg-primary/30 rounded-full translate-x-1/4 -translate-y-1/4" />
-      
-      {/* Decorative botanical shapes */}
-      <svg className="absolute bottom-0 left-0 w-48 md:w-72 text-secondary/20" viewBox="0 0 200 300" fill="currentColor">
-        <ellipse cx="60" cy="280" rx="35" ry="130" transform="rotate(-8 60 280)" />
-        <ellipse cx="120" cy="270" rx="30" ry="120" transform="rotate(5 120 270)" />
-        <ellipse cx="170" cy="285" rx="28" ry="110" transform="rotate(12 170 285)" />
-      </svg>
-      <svg className="absolute bottom-0 right-12 w-40 md:w-56 text-secondary/15" viewBox="0 0 200 300" fill="currentColor">
-        <ellipse cx="80" cy="280" rx="32" ry="125" transform="rotate(-5 80 280)" />
-        <ellipse cx="140" cy="275" rx="28" ry="115" transform="rotate(8 140 275)" />
-      </svg>
+      {/* Rising sun rays background */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[600px] h-[600px] md:w-[800px] md:h-[800px] animate-rising-sun" style={{
+          background: `conic-gradient(from 0deg, hsl(0 85% 50% / 0.08) 0deg, transparent 15deg, hsl(0 85% 50% / 0.08) 30deg, transparent 45deg, hsl(0 85% 50% / 0.08) 60deg, transparent 75deg, hsl(0 85% 50% / 0.08) 90deg, transparent 105deg, hsl(0 85% 50% / 0.08) 120deg, transparent 135deg, hsl(0 85% 50% / 0.08) 150deg, transparent 165deg, hsl(0 85% 50% / 0.08) 180deg, transparent 195deg, hsl(0 85% 50% / 0.08) 210deg, transparent 225deg, hsl(0 85% 50% / 0.08) 240deg, transparent 255deg, hsl(0 85% 50% / 0.08) 270deg, transparent 285deg, hsl(0 85% 50% / 0.08) 300deg, transparent 315deg, hsl(0 85% 50% / 0.08) 330deg, transparent 345deg, hsl(0 85% 50% / 0.08) 360deg)`,
+          borderRadius: '50%',
+        }} />
+      </div>
+
+      {/* Blue decorative border box */}
+      <div className="absolute top-8 left-8 border-2 border-secondary px-4 py-6 hidden md:block">
+        <p className="text-secondary text-xs font-mono uppercase tracking-widest" style={{ writingMode: 'vertical-rl' }}>
+          メインページ
+        </p>
+      </div>
       
       <div className="container relative z-10 text-center px-4">
         {/* Japanese title */}
-        <div className="mb-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-          <span className="text-6xl md:text-8xl font-display text-primary/25">
+        <div className="mb-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <span className="text-6xl md:text-8xl font-display text-primary/20">
             花札
           </span>
         </div>
         
         {/* Main title */}
         <h1 
-          className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 animate-fade-in"
+          className="text-5xl md:text-7xl lg:text-9xl font-display font-bold mb-6 animate-fade-in tracking-tight"
           style={{ animationDelay: '0.2s' }}
         >
-          <span className="text-gold">Hanafuda</span>
+          <span className="text-primary">HANAFUDA</span>
         </h1>
         
-        {/* Subtitle */}
-        <p 
-          className="text-xl md:text-2xl text-foreground/70 mb-4 font-light animate-fade-in"
+        {/* Subtitle in blue box */}
+        <div 
+          className="inline-block bg-secondary text-secondary-foreground px-6 py-3 mb-6 animate-fade-in"
           style={{ animationDelay: '0.3s' }}
         >
-          The Art of Japanese Flower Cards
-        </p>
+          <p className="text-sm md:text-base font-mono uppercase tracking-widest">
+            The Art of Japanese Flower Cards
+          </p>
+        </div>
         
         {/* Koi-Koi badge */}
         <div 
-          className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8 animate-fade-in"
+          className="inline-flex items-center gap-2 border-2 border-primary px-4 py-2 mb-8 animate-fade-in"
           style={{ animationDelay: '0.4s' }}
         >
-          <span className="w-2 h-2 rounded-full bg-primary" />
-          <span className="text-sm text-foreground/60">Featuring the beloved <strong className="text-primary">Koi-Koi</strong> variant</span>
+          <span className="w-2 h-2 bg-primary" />
+          <span className="text-sm text-foreground/70 font-mono">Featuring <strong className="text-primary">KOI-KOI</strong></span>
         </div>
         
         {/* Description */}
         <p 
-          className="max-w-2xl mx-auto text-muted-foreground mb-12 animate-fade-in"
+          className="max-w-xl mx-auto text-muted-foreground mb-12 animate-fade-in text-sm leading-relaxed"
           style={{ animationDelay: '0.5s' }}
         >
           Experience the centuries-old Japanese card game featuring 48 beautifully illustrated cards 
@@ -78,7 +80,7 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
           <Button 
             size="lg" 
             onClick={onPlayClick}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all text-lg px-8 py-6 shadow-lg hover:shadow-xl rounded-xl"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all text-lg px-8 py-6 font-mono uppercase tracking-wider border-0 rounded-none"
           >
             <Play className="w-5 h-5 mr-2" />
             Play Koi-Koi
@@ -87,20 +89,19 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
             size="lg" 
             variant="outline" 
             onClick={onLearnClick}
-            className="border-secondary/40 text-secondary hover:bg-secondary/10 text-lg px-8 py-6 rounded-xl"
+            className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground text-lg px-8 py-6 font-mono uppercase tracking-wider rounded-none"
           >
             <BookOpen className="w-5 h-5 mr-2" />
-            Learn the Rules
+            Learn Rules
           </Button>
         </div>
         
         {/* Scroll indicator */}
         <div 
           className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
-          style={{ animationDelay: '1s' }}
         >
-          <div className="w-6 h-10 border-2 border-primary/25 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-primary/40 rounded-full" />
+          <div className="w-6 h-10 border-2 border-primary/30 flex justify-center pt-2">
+            <div className="w-1 h-3 bg-primary/50" />
           </div>
         </div>
       </div>

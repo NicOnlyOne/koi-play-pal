@@ -1,47 +1,44 @@
 import { useEffect, useState } from 'react';
 
-interface Leaf {
+interface Particle {
   id: number;
   left: number;
   delay: number;
   duration: number;
   size: number;
   opacity: number;
-  type: 'leaf' | 'dot';
 }
 
 export function FallingPetals() {
-  const [leaves, setLeaves] = useState<Leaf[]>([]);
+  const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    const items: Leaf[] = Array.from({ length: 15 }, (_, i) => ({
+    const items: Particle[] = Array.from({ length: 12 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
-      delay: Math.random() * 12,
+      delay: Math.random() * 14,
       duration: 10 + Math.random() * 8,
-      size: 10 + Math.random() * 14,
-      opacity: 0.15 + Math.random() * 0.25,
-      type: Math.random() > 0.6 ? 'dot' : 'leaf',
+      size: 4 + Math.random() * 6,
+      opacity: 0.1 + Math.random() * 0.15,
     }));
-    setLeaves(items);
+    setParticles(items);
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {leaves.map((leaf) => (
+      {particles.map((p) => (
         <div
-          key={leaf.id}
-          className={leaf.type === 'leaf' ? 'absolute text-secondary' : 'absolute text-primary'}
+          key={p.id}
+          className="absolute rounded-full bg-primary"
           style={{
-            left: `${leaf.left}%`,
-            top: '-20px',
-            fontSize: `${leaf.size}px`,
-            opacity: leaf.opacity,
-            animation: `leaf-fall ${leaf.duration}s linear ${leaf.delay}s infinite`,
+            left: `${p.left}%`,
+            top: '-10px',
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            opacity: p.opacity,
+            animation: `leaf-fall ${p.duration}s linear ${p.delay}s infinite`,
           }}
-        >
-          {leaf.type === 'leaf' ? '🍃' : '●'}
-        </div>
+        />
       ))}
     </div>
   );
