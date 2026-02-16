@@ -68,10 +68,13 @@ export default {
         pine: "hsl(var(--pine))",
         moon: "hsl(var(--moon))",
         night: "hsl(var(--night))",
+        coral: "hsl(var(--coral))",
+        teal: "hsl(var(--teal))",
+        cream: "hsl(var(--cream))",
       },
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body: ['Noto Sans JP', 'sans-serif'],
+        display: ['DM Serif Display', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
