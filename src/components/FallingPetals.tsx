@@ -1,46 +1,46 @@
 import { useEffect, useState } from 'react';
 
-interface Petal {
+interface Leaf {
   id: number;
   left: number;
   delay: number;
   duration: number;
   size: number;
   opacity: number;
-  type: 'lotus' | 'dot';
+  type: 'leaf' | 'petal' | 'dot';
 }
 
 export function FallingPetals() {
-  const [petals, setPetals] = useState<Petal[]>([]);
+  const [leaves, setLeaves] = useState<Leaf[]>([]);
 
   useEffect(() => {
-    const items: Petal[] = Array.from({ length: 14 }, (_, i) => ({
+    const items: Leaf[] = Array.from({ length: 18 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 12,
       duration: 10 + Math.random() * 8,
-      size: 10 + Math.random() * 14,
-      opacity: 0.15 + Math.random() * 0.2,
-      type: Math.random() > 0.5 ? 'lotus' : 'dot',
+      size: 8 + Math.random() * 14,
+      opacity: 0.12 + Math.random() * 0.2,
+      type: i % 3 === 0 ? 'petal' : i % 3 === 1 ? 'leaf' : 'dot',
     }));
-    setPetals(items);
+    setLeaves(items);
   }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {petals.map((p) => (
+      {leaves.map((leaf) => (
         <div
-          key={p.id}
-          className="absolute"
+          key={leaf.id}
+          className={leaf.type === 'leaf' ? 'absolute text-secondary' : leaf.type === 'petal' ? 'absolute text-primary' : 'absolute text-accent'}
           style={{
-            left: `${p.left}%`,
+            left: `${leaf.left}%`,
             top: '-20px',
-            fontSize: `${p.size}px`,
-            opacity: p.opacity,
-            animation: `leaf-fall ${p.duration}s linear ${p.delay}s infinite`,
+            fontSize: `${leaf.size}px`,
+            opacity: leaf.opacity,
+            animation: `leaf-fall ${leaf.duration}s linear ${leaf.delay}s infinite`,
           }}
         >
-          {p.type === 'lotus' ? '🌸' : '✦'}
+          {leaf.type === 'leaf' ? '🍃' : leaf.type === 'petal' ? '✿' : '●'}
         </div>
       ))}
     </div>

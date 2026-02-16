@@ -2,101 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-/* Hanafuda Design System - Vibrant Red & Pink Kawaii */
+/* Hanafuda Design System - Warm Organic Japanese Aesthetic (Design Option 1 Refined) */
 
 @layer base {
   :root {
-    /* Vivid red background */
-    --background: 0 90% 52%;
-    --foreground: 0 0% 100%;
+    /* Warm cream background */
+    --background: 38 40% 95%;
+    --foreground: 220 20% 18%;
 
-    /* Soft pink card surfaces */
-    --card: 340 60% 88%;
-    --card-foreground: 0 0% 10%;
+    /* Soft white card surfaces */
+    --card: 38 35% 98%;
+    --card-foreground: 220 20% 18%;
 
-    --popover: 340 55% 90%;
-    --popover-foreground: 0 0% 10%;
+    --popover: 38 30% 97%;
+    --popover-foreground: 220 20% 18%;
 
-    /* Black primary for buttons/accents */
-    --primary: 0 0% 8%;
-    --primary-foreground: 0 0% 100%;
+    /* Coral/vermillion red - Japanese sun */
+    --primary: 10 75% 55%;
+    --primary-foreground: 38 40% 97%;
 
-    /* Vivid red as secondary */
-    --secondary: 0 90% 52%;
-    --secondary-foreground: 0 0% 100%;
+    /* Teal botanical green */
+    --secondary: 185 35% 38%;
+    --secondary-foreground: 38 40% 97%;
 
-    /* Muted pink */
-    --muted: 340 40% 82%;
-    --muted-foreground: 0 0% 35%;
+    /* Muted elements */
+    --muted: 38 25% 88%;
+    --muted-foreground: 220 10% 45%;
 
-    /* Accent - soft blue from the bird/ornament */
-    --accent: 220 70% 60%;
-    --accent-foreground: 0 0% 100%;
+    /* Warm gold accent */
+    --accent: 42 75% 55%;
+    --accent-foreground: 220 20% 15%;
 
-    --destructive: 0 70% 40%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 45%;
+    --destructive-foreground: 38 40% 97%;
 
-    --border: 340 30% 75%;
-    --input: 340 30% 78%;
-    --ring: 0 0% 8%;
+    --border: 38 20% 85%;
+    --input: 38 20% 85%;
+    --ring: 10 75% 55%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
     /* Custom Hanafuda colors */
-    --sakura: 340 60% 85%;
-    --sakura-dark: 340 50% 65%;
-    --wisteria: 270 40% 60%;
+    --sakura: 350 55% 72%;
+    --sakura-dark: 350 45% 55%;
+    --wisteria: 270 30% 60%;
     --chrysanthemum: 42 70% 58%;
-    --maple: 15 70% 50%;
-    --pine: 150 30% 35%;
-    --moon: 45 50% 85%;
-    --night: 0 0% 8%;
-    --coral: 0 90% 52%;
+    --maple: 15 65% 50%;
+    --pine: 185 30% 35%;
+    --moon: 42 50% 82%;
+    --night: 220 15% 22%;
+    --coral: 10 75% 55%;
     --teal: 185 35% 38%;
-    --cream: 340 60% 88%;
+    --cream: 38 40% 95%;
 
     /* Gradients */
-    --gradient-cream: linear-gradient(180deg, hsl(0 90% 52%) 0%, hsl(355 85% 48%) 100%);
-    --gradient-coral: linear-gradient(135deg, hsl(0 90% 52%) 0%, hsl(350 80% 45%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(340 60% 90%) 0%, hsl(340 55% 85%) 100%);
+    --gradient-cream: linear-gradient(180deg, hsl(38 40% 95%) 0%, hsl(38 35% 90%) 100%);
+    --gradient-coral: linear-gradient(135deg, hsl(10 75% 55%) 0%, hsl(15 70% 50%) 100%);
+    --gradient-teal: linear-gradient(135deg, hsl(185 35% 38%) 0%, hsl(190 30% 30%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(38 35% 98%) 0%, hsl(38 30% 94%) 100%);
 
     /* Shadows */
-    --shadow-soft: 0 4px 20px hsl(0 0% 0% / 0.1);
-    --shadow-card: 0 8px 30px hsl(0 0% 0% / 0.12);
-    --shadow-hover: 0 14px 40px hsl(0 0% 0% / 0.18);
+    --shadow-soft: 0 4px 20px hsl(220 15% 50% / 0.08);
+    --shadow-card: 0 8px 30px hsl(220 15% 50% / 0.1);
+    --shadow-hover: 0 12px 40px hsl(220 15% 50% / 0.15);
 
-    --sidebar-background: 340 55% 86%;
-    --sidebar-foreground: 0 0% 10%;
-    --sidebar-primary: 0 0% 8%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 340 40% 80%;
-    --sidebar-accent-foreground: 0 0% 10%;
-    --sidebar-border: 340 30% 75%;
-    --sidebar-ring: 0 0% 8%;
+    --sidebar-background: 38 35% 96%;
+    --sidebar-foreground: 220 20% 18%;
+    --sidebar-primary: 10 75% 55%;
+    --sidebar-primary-foreground: 38 40% 97%;
+    --sidebar-accent: 38 25% 90%;
+    --sidebar-accent-foreground: 220 20% 18%;
+    --sidebar-border: 38 20% 85%;
+    --sidebar-ring: 10 75% 55%;
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 340 60% 90%;
-    --card: 0 0% 12%;
-    --card-foreground: 340 60% 90%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 340 60% 90%;
-    --primary: 0 85% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 340 50% 70%;
-    --secondary-foreground: 0 0% 8%;
-    --muted: 0 0% 18%;
-    --muted-foreground: 340 30% 60%;
-    --accent: 220 60% 55%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 65% 45%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 22%;
-    --input: 0 0% 22%;
-    --ring: 0 85% 55%;
+    --background: 200 25% 12%;
+    --foreground: 38 30% 90%;
+    --card: 200 20% 16%;
+    --card-foreground: 38 30% 90%;
+    --popover: 200 20% 14%;
+    --popover-foreground: 38 30% 90%;
+    --primary: 10 70% 58%;
+    --primary-foreground: 200 25% 10%;
+    --secondary: 185 30% 50%;
+    --secondary-foreground: 200 25% 10%;
+    --muted: 200 15% 22%;
+    --muted-foreground: 38 20% 60%;
+    --accent: 42 65% 55%;
+    --accent-foreground: 200 25% 10%;
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 38 40% 95%;
+    --border: 200 15% 25%;
+    --input: 200 15% 25%;
+    --ring: 10 70% 58%;
   }
 }
 
@@ -107,36 +108,26 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     background: var(--gradient-cream);
     min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
+    font-family: 'DM Serif Display', serif;
   }
 }
 
 /* Custom animations */
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-12px) rotate(-3deg); }
-}
-
-@keyframes lantern-sway {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-}
-
-@keyframes wave-drift {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  50% { transform: translateY(-15px) rotate(3deg); }
 }
 
 @keyframes leaf-fall {
-  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.7; }
-  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  0% { transform: translateY(-10vh) rotate(0deg) scale(1); opacity: 0.7; }
+  50% { transform: translateY(50vh) rotate(180deg) scale(0.9); opacity: 0.5; }
+  100% { transform: translateY(110vh) rotate(360deg) scale(0.8); opacity: 0; }
 }
 
 @keyframes shimmer {
@@ -144,18 +135,18 @@
   100% { background-position: 200% center; }
 }
 
-@keyframes bounce-gentle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+@keyframes sun-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes wave-sway {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-8px); }
 }
 
 .animate-float {
-  animation: float 5s ease-in-out infinite;
-}
-
-.animate-lantern {
-  animation: lantern-sway 4s ease-in-out infinite;
-  transform-origin: top center;
+  animation: float 6s ease-in-out infinite;
 }
 
 .animate-leaf {
@@ -163,26 +154,38 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent, hsl(340 60% 88% / 0.3), transparent);
+  background: linear-gradient(90deg, transparent, hsl(10 75% 55% / 0.15), transparent);
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
 }
 
-.animate-bounce-gentle {
-  animation: bounce-gentle 3s ease-in-out infinite;
+.animate-sun-pulse {
+  animation: sun-pulse 4s ease-in-out infinite;
 }
 
-/* Hanafuda card styling - rounded kawaii style */
+.animate-wave-sway {
+  animation: wave-sway 6s ease-in-out infinite;
+}
+
+/* Seigaiha wave pattern */
+.seigaiha {
+  background-image: 
+    radial-gradient(circle at 50% 100%, transparent 37%, hsl(185 35% 38% / 0.08) 38%, hsl(185 35% 38% / 0.08) 40%, transparent 41%),
+    radial-gradient(circle at 50% 100%, transparent 55%, hsl(185 35% 38% / 0.05) 56%, hsl(185 35% 38% / 0.05) 58%, transparent 59%);
+  background-size: 40px 20px;
+}
+
+/* Hanafuda card styling */
 .hanafuda-card {
   background: var(--gradient-card);
   border: 2px solid hsl(var(--border));
-  border-radius: 16px;
+  border-radius: 10px;
   box-shadow: var(--shadow-card);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hanafuda-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
   border-color: hsl(var(--primary) / 0.4);
 }
@@ -192,21 +195,17 @@
   box-shadow: var(--shadow-hover), 0 0 20px hsl(var(--primary) / 0.2);
 }
 
-/* Glass morphism - pink tinted */
+/* Glass morphism - lighter for cream theme */
 .glass {
-  background: hsl(340 60% 88% / 0.85);
+  background: hsl(38 35% 98% / 0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid hsl(var(--border) / 0.5);
-  border-radius: 16px;
+  border: 1px solid hsl(var(--border) / 0.6);
 }
 
-/* Red text effect */
+/* Coral text effect */
 .text-gold {
-  color: hsl(0 0% 100%);
-}
-
-/* Seigaiha wave pattern */
-.wave-pattern {
-  background-image: radial-gradient(circle at 50% 100%, transparent 35%, hsl(340 50% 78% / 0.3) 36%, hsl(340 50% 78% / 0.3) 38%, transparent 39%);
-  background-size: 30px 15px;
+  background: var(--gradient-coral);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
