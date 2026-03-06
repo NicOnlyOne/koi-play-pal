@@ -71,6 +71,11 @@ export default {
         coral: "hsl(var(--coral))",
         teal: "hsl(var(--teal))",
         cream: "hsl(var(--cream))",
+        difficulty: {
+          easy: "hsl(var(--difficulty-easy))",
+          medium: "hsl(var(--difficulty-medium))",
+          hard: "hsl(var(--difficulty-hard))",
+        },
       },
       fontFamily: {
         display: ['DM Serif Display', 'serif'],

@@ -57,6 +57,22 @@
     --teal: 185 35% 38%;
     --cream: 38 40% 95%;
 
+    /* Semantic difficulty colors */
+    --difficulty-easy: 142 60% 45%;
+    --difficulty-medium: 42 75% 55%;
+    --difficulty-hard: 10 75% 55%;
+
+    /* Semantic spacing tokens */
+    --space-section: 6rem;
+    --space-block: 2rem;
+    --space-element: 1rem;
+    --space-inline: 0.5rem;
+
+    /* Semantic radius tokens */
+    --radius-card: 0.75rem;
+    --radius-pill: 9999px;
+    --radius-panel: 1rem;
+
     /* Gradients */
     --gradient-cream: linear-gradient(180deg, hsl(38 40% 95%) 0%, hsl(38 35% 90%) 100%);
     --gradient-coral: linear-gradient(135deg, hsl(10 75% 55%) 0%, hsl(15 70% 50%) 100%);
@@ -101,6 +117,10 @@
 
     --gradient-cream: linear-gradient(180deg, hsl(200 25% 12%) 0%, hsl(200 25% 10%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(200 20% 16%) 0%, hsl(200 20% 14%) 100%);
+
+    --difficulty-easy: 142 55% 50%;
+    --difficulty-medium: 42 65% 55%;
+    --difficulty-hard: 10 70% 58%;
   }
 
   /* WCAG AAA High Contrast Dark Mode - minimum 7:1 contrast ratios */
@@ -128,6 +148,10 @@
     --gradient-cream: linear-gradient(180deg, hsl(0 0% 5%) 0%, hsl(0 0% 3%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 8%) 100%);
     --gradient-coral: linear-gradient(135deg, hsl(45 100% 60%) 0%, hsl(40 90% 55%) 100%);
+
+    --difficulty-easy: 142 60% 55%;
+    --difficulty-medium: 45 100% 60%;
+    --difficulty-hard: 0 80% 60%;
   }
 }
 
