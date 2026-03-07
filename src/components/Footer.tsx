@@ -32,6 +32,14 @@ export function Footer() {
           <p className="text-xs text-muted-foreground/50 mt-6">
             花札 • はなふだ • Flower Cards
           </p>
+
+          <div className="flex items-center justify-center gap-3 mt-4 text-xs text-muted-foreground/40">
+            <span>© {new Date().getFullYear()}</span>
+            <span>•</span>
+            <a href="https://niconlyone.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">niconlyone.com</a>
+            <span>•</span>
+            <a href="/design-system" className="hover:text-primary transition-colors">Design System</a>
+          </div>
         </div>
       </div>
     </footer>
