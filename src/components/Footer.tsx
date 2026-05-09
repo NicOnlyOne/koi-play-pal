@@ -6,8 +6,10 @@ export function Footer() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.3 });
 
   return (
-    <footer className="py-12 border-t border-border/50 relative">
+    <footer className="py-16 border-t border-border/50 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-8 seigaiha opacity-20" />
+      <div className="absolute inset-0 asanoha opacity-[0.35] pointer-events-none" />
+      <div className="sumi-divider max-w-md mx-auto mb-10 relative z-10" />
       
       <div
         ref={ref}

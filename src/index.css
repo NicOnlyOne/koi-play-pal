@@ -161,14 +161,21 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased washi;
     font-family: 'DM Sans', sans-serif;
     background: var(--gradient-cream);
     min-height: 100vh;
+    letter-spacing: 0.005em;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'DM Serif Display', serif;
+    letter-spacing: -0.015em;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+    color: hsl(var(--foreground));
   }
 }
 
@@ -227,6 +234,81 @@
     radial-gradient(circle at 50% 100%, transparent 37%, hsl(185 35% 38% / 0.08) 38%, hsl(185 35% 38% / 0.08) 40%, transparent 41%),
     radial-gradient(circle at 50% 100%, transparent 55%, hsl(185 35% 38% / 0.05) 56%, hsl(185 35% 38% / 0.05) 58%, transparent 59%);
   background-size: 40px 20px;
+}
+
+/* Washi paper texture - subtle organic grain on body */
+.washi {
+  position: relative;
+}
+.washi::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image:
+    radial-gradient(hsl(var(--foreground) / 0.025) 1px, transparent 1px),
+    radial-gradient(hsl(var(--foreground) / 0.018) 1px, transparent 1px);
+  background-size: 3px 3px, 7px 7px;
+  background-position: 0 0, 1px 2px;
+}
+.dark .washi::before { mix-blend-mode: screen; opacity: 0.35; }
+.dark-wcag .washi::before { display: none; }
+
+/* Asanoha (hemp leaf) geometric pattern */
+.asanoha {
+  background-color: transparent;
+  background-image:
+    linear-gradient(60deg, hsl(var(--foreground) / 0.05) 25%, transparent 25.5%, transparent 75%, hsl(var(--foreground) / 0.05) 75.5%),
+    linear-gradient(-60deg, hsl(var(--foreground) / 0.05) 25%, transparent 25.5%, transparent 75%, hsl(var(--foreground) / 0.05) 75.5%),
+    linear-gradient(0deg, hsl(var(--foreground) / 0.04) 25%, transparent 25.5%, transparent 75%, hsl(var(--foreground) / 0.04) 75.5%);
+  background-size: 36px 62px;
+}
+
+/* Kinpaku — drifting gold leaf flecks */
+.kinpaku {
+  background-image:
+    radial-gradient(circle at 12% 18%, hsl(var(--accent) / 0.18) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 78% 32%, hsl(var(--accent) / 0.12) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 34% 72%, hsl(var(--accent) / 0.14) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 88% 84%, hsl(var(--accent) / 0.10) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 55% 12%, hsl(var(--accent) / 0.10) 0 1px, transparent 1.5px);
+  background-size: 100% 100%;
+}
+
+/* Sumi-e ink wash divider */
+.sumi-divider {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    hsl(var(--foreground) / 0.05) 15%,
+    hsl(var(--foreground) / 0.35) 50%,
+    hsl(var(--foreground) / 0.05) 85%,
+    transparent 100%);
+  position: relative;
+}
+.sumi-divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: hsl(var(--primary));
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 16px hsl(var(--primary) / 0.4);
+}
+
+/* Ensō — hand-drawn zen circle outline */
+.enso {
+  border-radius: 9999px;
+  border: 2px solid hsl(var(--primary) / 0.55);
+  border-right-color: transparent;
+  border-bottom-color: hsl(var(--primary) / 0.2);
+  filter: drop-shadow(0 0 24px hsl(var(--primary) / 0.15));
 }
 
 /* Hanafuda card styling */
