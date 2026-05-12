@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { FallingPetals } from './FallingPetals';
+
 
 interface HeroProps {
   onPlayClick: () => void;
@@ -9,7 +9,7 @@ interface HeroProps {
 export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden px-6 sm:px-12 py-20">
-      <FallingPetals />
+      
 
       {/* Background blooms */}
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
