@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { CARD_IMAGES } from '@/lib/cardImages';
+import { useMemo } from 'react';
 
 
 interface HeroProps {
@@ -7,6 +9,12 @@ interface HeroProps {
 }
 
 export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
+  const cardIds = useMemo(() => {
+    const ids = Object.keys(CARD_IMAGES).map(Number);
+    const shuffled = ids.sort(() => Math.random() - 0.5);
+    return [shuffled[0], shuffled[1]];
+  }, []);
+
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden px-6 sm:px-12 py-20">
       
@@ -76,22 +84,23 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
         {/* Right: card composition */}
         <div className="lg:col-span-4 relative hidden lg:flex justify-end animate-fade-in" style={{ animationDelay: '0.45s' }}>
           <div className="relative w-64 h-96">
-            {/* Card 1 — sun */}
-            <div className="absolute inset-0 bg-card border border-accent/30 shadow-[var(--shadow-card)] rotate-[-6deg] -translate-x-[20%] p-2 transition-transform duration-700 hover:-rotate-3">
-              <div className="w-full h-full bg-background border border-accent/15 flex flex-col items-center justify-between p-4">
-                <div className="w-12 h-12 rounded-full bg-primary" />
-                <div className="w-full h-32 bg-secondary/10 rounded" />
-                <span className="text-secondary/70 text-[0.6rem] tracking-[0.4em] font-display">MARCH</span>
-              </div>
+            {/* Card 1 */}
+            <div className="absolute inset-0 bg-card border border-accent/30 shadow-[var(--shadow-card)] rotate-[-6deg] -translate-x-[20%] p-2 transition-transform duration-700 hover:-rotate-3 overflow-hidden">
+              <img
+                src={CARD_IMAGES[cardIds[0]]}
+                alt="Hanafuda card"
+                className="w-full h-full object-cover rounded-sm"
+                loading="eager"
+              />
             </div>
-            {/* Card 2 — moon */}
-            <div className="absolute inset-0 bg-card border border-accent/30 shadow-[var(--shadow-hover)] rotate-[5deg] translate-y-8 p-2 z-20 transition-transform duration-700 hover:rotate-2">
-              <div className="w-full h-full bg-background border border-accent/15 flex flex-col items-center justify-center p-4 gap-4">
-                <div className="w-24 h-24 rounded-full border-4 border-accent/20 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-accent rounded-full animate-sun-pulse" />
-                </div>
-                <span className="text-secondary text-[0.65rem] tracking-[0.5em] font-display">AUGUST</span>
-              </div>
+            {/* Card 2 */}
+            <div className="absolute inset-0 bg-card border border-accent/30 shadow-[var(--shadow-hover)] rotate-[5deg] translate-y-8 p-2 z-20 transition-transform duration-700 hover:rotate-2 overflow-hidden">
+              <img
+                src={CARD_IMAGES[cardIds[1]]}
+                alt="Hanafuda card"
+                className="w-full h-full object-cover rounded-sm"
+                loading="eager"
+              />
             </div>
           </div>
 
