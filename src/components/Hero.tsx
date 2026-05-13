@@ -9,6 +9,12 @@ interface HeroProps {
 }
 
 export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
+  const cardIds = useMemo(() => {
+    const ids = Object.keys(CARD_IMAGES).map(Number);
+    const shuffled = ids.sort(() => Math.random() - 0.5);
+    return [shuffled[0], shuffled[1]];
+  }, []);
+
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden px-6 sm:px-12 py-20">
       
