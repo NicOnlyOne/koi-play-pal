@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/hooks/use-theme";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Sun, Moon, Eye } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const ColorSwatch = ({ name, className, token }: { name: string; className: string; token: string }) => (
   <div className="flex flex-col items-center gap-2">
@@ -49,11 +50,19 @@ const DesignSystem = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Design System — Koi-Koi Play Pal</title>
+        <meta name="description" content="Design tokens, typography, color palette, and components powering the Koi-Koi Play Pal Hanafuda interface." />
+        <link rel="canonical" href="https://koi-play-pal.lovable.app/design-system" />
+        <meta property="og:title" content="Design System — Koi-Koi Play Pal" />
+        <meta property="og:description" content="Design tokens, typography, color palette, and components powering the Koi-Koi Play Pal Hanafuda interface." />
+        <meta property="og:url" content="https://koi-play-pal.lovable.app/design-system" />
+      </Helmet>
       {/* Header */}
       <header className="sticky top-0 z-50 glass border-b border-border">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link to="/" aria-label="Back to home" className="text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div>
@@ -114,7 +123,7 @@ const DesignSystem = () => {
           <h2 className="text-3xl font-display text-foreground mb-2">Typography</h2>
           <p className="text-muted-foreground font-body mb-6">DM Serif Display for headings, DM Sans for body.</p>
           <div className="space-y-4 rounded-lg border border-border bg-card p-8">
-            <h1 className="text-5xl font-display text-foreground">Heading 1 — Display</h1>
+            <div role="heading" aria-level={2} className="text-5xl font-display text-foreground">Heading 1 — Display</div>
             <h2 className="text-4xl font-display text-foreground">Heading 2 — Display</h2>
             <h3 className="text-3xl font-display text-foreground">Heading 3 — Display</h3>
             <h4 className="text-2xl font-display text-foreground">Heading 4 — Display</h4>
@@ -213,7 +222,7 @@ const DesignSystem = () => {
               <Button size="sm">Small</Button>
               <Button size="default">Default</Button>
               <Button size="lg">Large</Button>
-              <Button size="icon"><Sun className="w-4 h-4" /></Button>
+              <Button size="icon" aria-label="Sun icon button example"><Sun className="w-4 h-4" /></Button>
             </div>
           </div>
         </section>

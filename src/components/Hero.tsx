@@ -50,8 +50,11 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
             className="font-display text-7xl sm:text-8xl md:text-9xl text-secondary leading-[0.95] tracking-tight mb-8 animate-fade-in"
             style={{ animationDelay: '0.15s' }}
           >
-            Hana<br />
-            <span className="italic font-normal text-gold">fuda</span>
+            <span aria-hidden="true">
+              Hana<br />
+              <span className="italic font-normal text-gold">fuda</span>
+            </span>
+            <span className="sr-only">Hanafuda — Japanese Flower Cards</span>
           </h1>
 
           <p
@@ -89,8 +92,11 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
               <img
                 src={CARD_IMAGES[cardIds[0]]}
                 alt="Hanafuda card"
+                width={256}
+                height={384}
                 className="w-full h-full object-cover rounded-sm"
                 loading="eager"
+                fetchPriority="high"
               />
             </div>
             {/* Card 2 */}
@@ -98,8 +104,11 @@ export function Hero({ onPlayClick, onLearnClick }: HeroProps) {
               <img
                 src={CARD_IMAGES[cardIds[1]]}
                 alt="Hanafuda card"
+                width={256}
+                height={384}
                 className="w-full h-full object-cover rounded-sm"
                 loading="eager"
+                fetchPriority="high"
               />
             </div>
           </div>

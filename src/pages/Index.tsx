@@ -30,16 +30,18 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <StickyNav onPlayClick={handlePlayClick} />
-      <Hero onPlayClick={handlePlayClick} onLearnClick={handleLearnClick} />
-      <section id="about">
-        <AboutSection />
-      </section>
-      <section id="rules">
-        <RulesSection />
-      </section>
-      <section id="gallery">
-        <CardGallery />
-      </section>
+      <main>
+        <Hero onPlayClick={handlePlayClick} onLearnClick={handleLearnClick} />
+        <section id="about">
+          <AboutSection />
+        </section>
+        <section id="rules">
+          <RulesSection />
+        </section>
+        <section id="gallery">
+          <CardGallery />
+        </section>
+      </main>
       <Footer />
     </div>
   );
