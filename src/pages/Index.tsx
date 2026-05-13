@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Hero } from '@/components/Hero';
 import { AboutSection } from '@/components/AboutSection';
 import { RulesSection } from '@/components/RulesSection';
@@ -29,6 +30,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>Koi-Koi Play Pal — Hanafuda Card Game</title>
+        <meta name="description" content="Play Koi-Koi, the classic Japanese Hanafuda card game, in your browser. Learn the rules, explore the beautiful cards, and challenge the AI." />
+        <link rel="canonical" href="https://koi-play-pal.lovable.app/" />
+      </Helmet>
       <StickyNav onPlayClick={handlePlayClick} />
       <main>
         <Hero onPlayClick={handlePlayClick} onLearnClick={handleLearnClick} />
