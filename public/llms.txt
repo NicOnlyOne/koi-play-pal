@@ -1,0 +1,14 @@
+# Koi-Koi Play Pal
+
+> Play the classic Japanese Hanafuda card game Koi-Koi in your browser, with beautiful ukiyo-e cards and AI opponents.
+
+Koi-Koi Play Pal is a browser-based implementation of the traditional Japanese flower-card game Hanafuda. It includes the full 48-card deck, three AI difficulty levels, an interactive card gallery, and learnable rules with all 12 yaku scoring combinations.
+
+## Pages
+
+- [Home](/): Overview, hero, rules, card gallery, and the Koi-Koi game itself.
+- [Design System](/design-system): Color tokens, typography, components, and theme reference.
+
+## Optional
+
+- [Source / author](https://niconlyone.com): Project author site.
