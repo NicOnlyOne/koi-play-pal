@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { CARD_IMAGES } from '@/lib/cardImages';
+import { useMemo } from 'react';
 
 
 interface HeroProps {
